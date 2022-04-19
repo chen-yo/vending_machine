@@ -1,9 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { Button, Chip, Grid, TextField, Stack } from "@mui/material";
 import { useState } from "react";
+import { fetchFunds } from "./api/apiClient";
+import Cart from "./components/Funds/Cart";
+import Drinks from "./components/Funds/Drinks";
+import AddFunds from "./components/Funds/Funds";
 
 function App() {
+
   return (
     <div>
       <header
@@ -19,17 +25,18 @@ function App() {
       <div
         css={css`
           width: 800px;
+          padding: 20px;
           margin: 0 auto;
           background-color: #fefcee;
           height: 100vh;
           border-radius: 8px;
           box-shadow: 0 0 10px 0px rgb(0 0 0 / 70%);
         `}
-
-        
       >
+        <AddFunds />
+        <Drinks />
+        <Cart />
 
-        
       </div>
     </div>
   );
