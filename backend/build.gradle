@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.eyenet'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = "11"
+sourceCompatibility = "1.8"
 
 configurations {
 	compileOnly {
@@ -29,4 +29,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-targetCompatibility = JavaVersion.VERSION_11
+
