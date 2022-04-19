@@ -49,6 +49,12 @@ public class AppController {
         return new ResponseEntity<>(appService.getMachineState().getFunds(), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/drinks", method = RequestMethod.GET)
+    public ResponseEntity<?> getDrinks() {
+
+        return new ResponseEntity<>(appService.getMachineState().getDrinks(), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/purchase", method = RequestMethod.POST)
     public ResponseEntity<?> purchase(@RequestBody Map<Integer, Integer> drinkId2Quantity) {
         try {
