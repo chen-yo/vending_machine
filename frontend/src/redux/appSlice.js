@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { useSelector } from "react-redux";
 import * as serverApi from "../api/apiClient";
 
 const initialState = {
@@ -21,9 +20,12 @@ export const fetchDrinks = createAsyncThunk("app/fetchDrinks", async () => {
   return await serverApi.fetchDrinks();
 });
 
-export const purchase = createAsyncThunk("app/purchase", async (_, thunkApi) => {
-  return await serverApi.purchase(thunkApi.getState().cart);
-});
+export const purchase = createAsyncThunk(
+  "app/purchase",
+  async (_, thunkApi) => {
+    return await serverApi.purchase(thunkApi.getState().cart);
+  }
+);
 
 export const pullAll = createAsyncThunk("app/pullAll", async () => {
   return await serverApi.pullAll();
@@ -42,8 +44,8 @@ export const appSlice = createSlice({
     },
     reset: (state) => {
       state.cart = {};
-      state.status = 'idle'
-    }
+      state.status = "idle";
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -62,18 +64,14 @@ export const appSlice = createSlice({
         state.drinks = action.payload;
         state.status = "done";
       })
-      .addCase(purchase.pending, (state, action) => {
-        state.status = "purchase-pending";
-      })
       .addCase(purchase.fulfilled, (state, action) => {
         state.funds = action.payload;
-        state.cart = {}
-        state.status = "purchase-success";
+        state.cart = {};
       })
       .addCase(pullAll.fulfilled, (state, action) => {
         state.funds = 0;
-        state.cart = {}
-      })
+        state.cart = {};
+      });
   },
 });
 
