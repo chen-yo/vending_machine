@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import Typography from "@mui/material/Typography";
 import { Chip, DialogActions, DialogContent, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { addFunds, fetchFunds } from "../../redux/appSlice";
+import { addFunds, fetchFunds, pullAll } from "../../redux/appSlice";
 
 function AddFundsDialog({ onClose, onChange, value, open }) {
   const inputRef = React.useRef();
@@ -26,8 +26,6 @@ function AddFundsDialog({ onClose, onChange, value, open }) {
         <Button onClick={onClose}>Cancel</Button>
         <Button
           onClick={() => {
-            console.log(inputRef);
-
             onChange(inputRef.current.value);
             onClose();
           }}
@@ -65,6 +63,19 @@ export default function AddFunds() {
       <br />
       <Button variant="outlined" onClick={handleClickOpen}>
         Add Funds
+      </Button>
+      <Button
+        disabled={funds === 0}
+        variant="outlined"
+        onClick={() => {
+          dispatch(pullAll())
+            .unwrap()
+            .then((pulledFunds) => {
+              alert("Take your " + pulledFunds);
+            });
+        }}
+      >
+        Pull funds
       </Button>
       <AddFundsDialog
         onChange={(newFunds) => dispatch(addFunds(newFunds))}

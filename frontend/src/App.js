@@ -7,6 +7,7 @@ import { fetchFunds } from "./api/apiClient";
 import Cart from "./components/Funds/Cart";
 import Drinks from "./components/Funds/Drinks";
 import AddFunds from "./components/Funds/Funds";
+import { PurchaseButton } from "./components/Funds/PurchaseButton";
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
         <AddFunds />
         <Drinks />
         <Cart />
+        <PurchaseButton />
 
       </div>
     </div>

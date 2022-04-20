@@ -21,6 +21,14 @@ export const fetchDrinks = createAsyncThunk("app/fetchDrinks", async () => {
   return await serverApi.fetchDrinks();
 });
 
+export const purchase = createAsyncThunk("app/purchase", async (_, thunkApi) => {
+  return await serverApi.purchase(thunkApi.getState().cart);
+});
+
+export const pullAll = createAsyncThunk("app/pullAll", async () => {
+  return await serverApi.pullAll();
+});
+
 export const appSlice = createSlice({
   name: "app",
   initialState,
@@ -32,6 +40,10 @@ export const appSlice = createSlice({
         state.cart[drinkId] = 1;
       }
     },
+    reset: (state) => {
+      state.cart = {};
+      state.status = 'idle'
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -49,11 +61,23 @@ export const appSlice = createSlice({
       .addCase(fetchDrinks.fulfilled, (state, action) => {
         state.drinks = action.payload;
         state.status = "done";
-      });
+      })
+      .addCase(purchase.pending, (state, action) => {
+        state.status = "purchase-pending";
+      })
+      .addCase(purchase.fulfilled, (state, action) => {
+        state.funds = action.payload;
+        state.cart = {}
+        state.status = "purchase-success";
+      })
+      .addCase(pullAll.fulfilled, (state, action) => {
+        state.funds = 0;
+        state.cart = {}
+      })
   },
 });
 
-export const { addToCart } = appSlice.actions;
+export const { addToCart, reset } = appSlice.actions;
 
 export const cartTotal = (state) => {
   const { cart, drinks } = state;

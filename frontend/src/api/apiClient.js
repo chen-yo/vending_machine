@@ -19,11 +19,25 @@ export const addFunds = (value) => {
 };
 
 export const fetchDrinks = () => {
-    return axios
-      .get("/drinks")
-      .then((res) => res.data)
-      .catch(handleError);
-  };
+  return axios
+    .get("/drinks")
+    .then((res) => res.data)
+    .catch(handleError);
+};
+
+export const purchase = (cart) => {
+  return axios
+    .post("/purchase", cart)
+    .then((res) => res.data)
+    .catch(handleError);
+};
+
+export const pullAll = () => {
+  return axios
+    .get("/funds/pullAll")
+    .then((res) => res.data)
+    .catch(handleError);
+};
 
 function handleError(error) {
   console.error(
